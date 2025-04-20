@@ -27,8 +27,44 @@ class View(object):
         )
 
         # Add your stuff here
+        # ROW1
+        self.ddLanguage = ft.Dropdown(
+            value = "Choose language",
+            label="Language",
+            width=200,
+            options=[ft.dropdown.Option("italian"), ft.dropdown.Option("english"), ft.dropdown.Option("spanish")],
+            on_change=self.__controller.handleLanguageSelection
+        )
 
-        self.page.add([])
+
+        # ROW2 (a sinistra il menu a tendina, al centro spazio per testo e a destra bottone)
+        # Sinistra
+        self.ddModality = ft.Dropdown(
+            value = "Choose modality",
+            label = "Search Modality",
+            width=300,
+            options = [ft.dropdown.Option("Default"), ft.dropdown.Option("Linear"), ft.dropdown.Option("Dichotomic")],
+            on_change = self.__controller.handleModalitySelection
+        )
+        # Centro
+        self.txtIn = ft.TextField(
+            label = "Text",
+            width=200,
+        )
+        # Destra
+        self.btnCorrection = ft.ElevatedButton(
+            text = "Start Spell Check",
+            on_click= self.__controller.handleSpellCheck
+        )
+        row2 = ft.Row(controls=[self.ddModality, self.txtIn, self.btnCorrection], alignment=ft.MainAxisAlignment.CENTER)
+
+
+        # ROW3
+        self.txtOut = ft.ListView(spacing=1, expand=1, padding=15, auto_scroll=True)  # padding controlla la distanza da ciò che c'è sopra
+
+
+        # Metto tutto insieme nella pagina
+        self.page.add(self.ddLanguage, row2, self.txtOut)
 
         self.page.update()
 
